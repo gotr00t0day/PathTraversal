@@ -1,7 +1,7 @@
 # PathTraversal
 Path Traversal vulnerability scanner. This tool extracts links with paremeters from a website and then it tests path traversal payloads on those endpoints.
 
-##INSTALLATION
+## INSTALLATION
 
 git clone https://github.com/gotr00t0day/PathTraversal.git
 
