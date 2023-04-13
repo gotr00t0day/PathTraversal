@@ -11,7 +11,7 @@ pip3 install -r requirements.txt
 
 ## USAGE
 
-python3 path_traversal.py website
+python3 pathhunt.py website
 
 
 
