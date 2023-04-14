@@ -1,5 +1,5 @@
 # PathTraversal
-Path Traversal vulnerability scanner. This tool extracts links with paremeters from a website and then it tests path traversal payloads on those endpoints.
+Path Traversal vulnerability scanner. 
 
 ## INSTALLATION
 
