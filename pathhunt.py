@@ -23,7 +23,7 @@ banner = f"""
 ▒▓▒░ ░  ░ ▒▒   ▓▒█░ ▒ ░░    ▒ ░░▒░▒ ▒ ░░▒░▒░▒▓▒ ▒ ▒ ░ ▒░   ▒ ▒   ▒ ░░   
 ░▒ ░       ▒   ▒▒ ░   ░     ▒ ░▒░ ░ ▒ ░▒░ ░░░▒░ ░ ░ ░ ░░   ░ ▒░    ░    
 ░░         ░   ▒    ░       ░  ░░ ░ ░  ░░ ░ ░░░ ░ ░    ░   ░ ░   ░      
-               ░  ░         ░  ░  ░ ░  ░  ░   ░              ░   V1.1       
+               ░  ░         ░  ░  ░ ░  ░  ░   ░              ░   V1.2       
                                                                         
 {Fore.MAGENTA}by c0deninja
 """
@@ -63,6 +63,7 @@ if args.parameters:
         r = s.get(args.parameters, verify=False, headers=header)
         content = r.content
         links = re.findall('(?:href=")(.*?)"', content.decode('utf-8'))
+        links2 =  re.findall('(?:src=")(.*?)"', content.decode('utf-8'))
         duplicatelinks = set(links)
         params_links = []
         for link in links:
@@ -70,13 +71,19 @@ if args.parameters:
             if link not in duplicatelinks:
                 if "=" in link:
                     params_links.append(link + "\n")
+        for src_links in links2:
+            src_links = urljoin(args.parameters, src_links)
+            if src_links not in duplicatelinks:
+                if "=" in src_links:
+                    params_links.append(src_links + "\n")
         parameters_list: list[str] = []
         vulnerable: list[str] = []
         for params2 in params_links:
             parameters = params2.split("=")[0]
             parameters_list.append(f"{parameters}=")
+        print(f"{Fore.MAGENTA}Parameters found: {Fore.YELLOW}{', '.join(map(str,parameters_list))}\n")
         cdir = os.getcwd()
-        with open(f"{cdir}/utils/payloads/traversal.txt", "r") as f:
+        with open(f"{cdir}/payloads/traversal.txt", "r") as f:
             path_traversal_list = [x.strip() for x in f.readlines()]
         for parameterslist in parameters_list:
             for path_list in path_traversal_list:
